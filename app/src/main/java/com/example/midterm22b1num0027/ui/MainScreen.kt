@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.midterm22b1num0027.data.Word
 import com.example.midterm22b1num0027.datastore.DisplayMode
@@ -72,14 +73,10 @@ fun MainScreen(
                 TextButton(onClick = {
                     onDelete(currentWord)
                     showDeleteDialog=false
-                }) {
-                    Text("Yes")
-                }
+                }) {Text("Yes")}
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("No")
-                }
+                TextButton(onClick = {showDeleteDialog = false}) {Text("No")}
             }
         )
     }
@@ -87,7 +84,7 @@ fun MainScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Word Memorizer") },
+                title = {Text("Word Memorizer")},
                 actions = {
                     IconButton(onClick = onSettings) {
                         Icon(
@@ -373,4 +370,76 @@ fun MainScreen(
             }
         }
     }
+}
+
+
+@Preview(showBackground = true, name = "No Words")
+@Composable
+fun PreviewMainScreenEmpty() {
+    MainScreen(
+        words = emptyList(),
+        currentIndex = 0,
+        displayMode = DisplayMode.BOTH,
+        onPrevious = {},
+        onNext = {},
+        onAdd = { println("Add Word Clicked") },
+        onEdit = { println("Edit Clicked: $it") },
+        onDelete = { println("Delete Clicked: $it") },
+        onSettings = { println("Settings Clicked") }
+    )
+}
+
+@Preview(showBackground = true, name = "Single Word")
+@Composable
+fun PreviewMainScreenSingleWord() {
+    MainScreen(
+        words = listOf(Word(english = "Hello", mongolian = "Сайн уу")),
+        currentIndex = 0,
+        displayMode = DisplayMode.BOTH,
+        onPrevious = {},
+        onNext = {},
+        onAdd = { println("Add Word Clicked") },
+        onEdit = { println("Edit Clicked: $it") },
+        onDelete = { println("Delete Clicked: $it") },
+        onSettings = { println("Settings Clicked") }
+    )
+}
+
+@Preview(showBackground = true, name = "Multiple Words")
+@Composable
+fun PreviewMainScreenMultipleWords() {
+    MainScreen(
+        words = listOf(
+            Word(english = "Apple", mongolian = "Алим"),
+            Word(english = "Orange", mongolian = "Жүрж"),
+            Word(english = "Banana", mongolian = "Банана")
+        ),
+        currentIndex = 1,
+        displayMode = DisplayMode.FOREIGN,
+        onPrevious = { println("Previous Clicked") },
+        onNext = { println("Next Clicked") },
+        onAdd = { println("Add Word Clicked") },
+        onEdit = { println("Edit Clicked: $it") },
+        onDelete = { println("Delete Clicked: $it") },
+        onSettings = { println("Settings Clicked") }
+    )
+}
+
+@Preview(showBackground = true, name = "Mongolian Display Mode")
+@Composable
+fun PreviewMainScreenMongolianMode() {
+    MainScreen(
+        words = listOf(
+            Word(english = "Car", mongolian = "Машин"),
+            Word(english = "Plane", mongolian = "Онгоц")
+        ),
+        currentIndex = 0,
+        displayMode = DisplayMode.MONGOLIAN,
+        onPrevious = {},
+        onNext = {},
+        onAdd = { println("Add Word Clicked") },
+        onEdit = { println("Edit Clicked: $it") },
+        onDelete = { println("Delete Clicked: $it") },
+        onSettings = { println("Settings Clicked") }
+    )
 }

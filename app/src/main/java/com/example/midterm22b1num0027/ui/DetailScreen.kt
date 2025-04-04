@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.midterm22b1num0027.data.Word
 
@@ -46,4 +47,43 @@ fun DetailScreen(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewDetailScreen() {
+    DetailScreen(
+        word = Word(english = "Hello", mongolian = "Сайн уу"),
+        onSave = { english, mongolian ->
+            println("Saved: $english - $mongolian")
+        },
+        onCancel = {println("Cancelled")}
+    )
+}
+
+@Preview(showBackground = true, name = "Empty")
+@Composable
+fun PreviewEmptyDetailScreen() {
+    DetailScreen(
+        word = null,
+        onSave = { english, mongolian ->
+            println("Saved: $english - $mongolian")
+        },
+        onCancel = { println("Cancelled") }
+    )
+}
+
+@Preview(showBackground = true, name = "Long Text")
+@Composable
+fun PreviewLongTextDetailScreen() {
+    DetailScreen(
+        word = Word(
+            english = "Supercalifragilisticexpialidocious",
+            mongolian = "Маш урт үг"
+        ),
+        onSave = { english, mongolian ->
+            println("Saved: $english - $mongolian")
+        },
+        onCancel = { println("Cancelled") }
+    )
 }
