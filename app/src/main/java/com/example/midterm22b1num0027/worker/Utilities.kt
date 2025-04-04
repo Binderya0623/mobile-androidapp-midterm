@@ -5,7 +5,7 @@ import androidx.work.*
 import java.util.concurrent.TimeUnit
 
 fun scheduleReminder(context: Context) {
-    val request= PeriodicWorkRequestBuilder<WordReminderWorker>(15,TimeUnit.MINUTES).build()
+    val request= PeriodicWorkRequestBuilder<WordReminderWorker>(24,TimeUnit.HOURS).build()
     WorkManager.getInstance(context)
         .enqueueUniquePeriodicWork("word_reminder", ExistingPeriodicWorkPolicy.UPDATE, request)
 }
